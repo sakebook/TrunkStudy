@@ -1,12 +1,14 @@
 package com.sakebook.android.trunksimplenews.activities;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void init() {
-        ListView list = (ListView)findViewById(R.id.list_article);
+        mListView = (ListView)findViewById(R.id.list_article);
         //TODO: 記事取得
         List<Article> articles = new ArrayList<>();
         Article a1 = new Article();
@@ -43,7 +47,14 @@ public class MainActivity extends AppCompatActivity {
         articles.add(a2);
         articles.add(a3);
         ArticleAdapter adapter = new ArticleAdapter(this, R.layout.list_article_item, articles);
-        list.setAdapter(adapter);
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Article article = (Article) parent.getItemAtPosition(position);
+                Toast.makeText(MainActivity.this, article.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

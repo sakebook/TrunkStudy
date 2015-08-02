@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by sakemotoshinya on 15/07/28.
  */
-public class ArticleAdapter extends ArrayAdapter{
+public class ArticleAdapter extends ArrayAdapter<Article>{
     private List<Article> mArticles;
     private int mResourceId;
     public ArticleAdapter(Context context, int resource, List<Article> objects) {
@@ -25,8 +25,6 @@ public class ArticleAdapter extends ArrayAdapter{
         mArticles = objects;
         mResourceId = resource;
     }
-
-
 
     @Override
     public int getCount() {

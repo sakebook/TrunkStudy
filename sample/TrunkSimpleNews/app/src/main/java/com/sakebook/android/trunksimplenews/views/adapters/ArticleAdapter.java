@@ -1,7 +1,6 @@
 package com.sakebook.android.trunksimplenews.views.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +19,12 @@ import java.util.List;
 public class ArticleAdapter extends ArrayAdapter<Article>{
     private List<Article> mArticles;
     private int mResourceId;
+    private Context mContext;
     public ArticleAdapter(Context context, int resource, List<Article> objects) {
         super(context, resource, objects);
-        mArticles = objects;
-        mResourceId = resource;
+        this.mArticles = objects;
+        this.mResourceId = resource;
+        this.mContext = context;
     }
 
     @Override
@@ -44,8 +45,10 @@ public class ArticleAdapter extends ArrayAdapter<Article>{
 
         Article article = mArticles.get(position);
         holder.titleText.setText(article.getTitle());
-        if (!TextUtils.isEmpty(article.getImageUrl())) {
-            holder.contentImage.setImageURI(Uri.parse(article.getImageUrl()));
+        String url = article.getUser().getImageUrl();
+        if (!TextUtils.isEmpty(url)) {
+            holder.contentImage.setImageResource(R.mipmap.ic_launcher);
+//            holder.contentImage.setImageBitmap(bitmap);
         }
 
         return convertView;

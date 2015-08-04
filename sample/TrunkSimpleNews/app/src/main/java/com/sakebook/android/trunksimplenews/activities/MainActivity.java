@@ -12,14 +12,21 @@ import android.widget.Toast;
 
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
+import com.sakebook.android.trunksimplenews.network.ApiClient;
+import com.sakebook.android.trunksimplenews.utils.L;
 import com.sakebook.android.trunksimplenews.views.adapters.ArticleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     private ListView mListView;
+    private ArticleAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +42,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         mListView = (ListView)findViewById(R.id.list_article);
-        //TODO: 記事取得
-        List<Article> articles = new ArrayList<>();
-        Article a1 = new Article();
-        a1.setTitle("一つ目の記事");
-        Article a2 = new Article();
-        a2.setTitle("2つ目の記事");
-        Article a3 = new Article();
-        a3.setTitle("3つ目の記事");
-        articles.add(a1);
-        articles.add(a2);
-        articles.add(a3);
-        ArticleAdapter adapter = new ArticleAdapter(this, R.layout.list_article_item, articles);
-        mListView.setAdapter(adapter);
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Article article = (Article) parent.getItemAtPosition(position);
                 Toast.makeText(MainActivity.this, article.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ApiClient.getArticles(new Callback<List<Article>>() {
+            @Override
+            public void success(List<Article> articles, Response response) {
+                L.d("success: " + articles.size());
+                mAdapter = new ArticleAdapter(MainActivity.this, R.layout.list_article_item, articles);
+                mListView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                L.d("failure: " + error.getLocalizedMessage());
             }
         });
     }

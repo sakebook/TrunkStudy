@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void success(List<Article> articles, Response response) {
                 L.d("success: " + articles.size());
-                mAdapter = new ArticleAdapter(MainActivity.this, R.layout.list_article_item, articles);
+                mAdapter = new ArticleAdapter(MainActivity.this, R.layout.list_article_item, articles, getSupportLoaderManager());
                 mListView.setAdapter(mAdapter);
             }
 

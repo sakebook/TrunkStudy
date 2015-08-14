@@ -1,5 +1,6 @@
 package com.sakebook.android.trunksimplenews.activities;
 
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,13 +11,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
 import com.sakebook.android.trunksimplenews.network.ApiClient;
 import com.sakebook.android.trunksimplenews.utils.L;
 import com.sakebook.android.trunksimplenews.views.adapters.ArticleAdapter;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import retrofit.Callback;
@@ -42,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         mListView = (ListView)findViewById(R.id.list_article);
-
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -50,7 +56,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, article.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
+        mListView.setDivider(null);
 
+        getArticles();
+//        getArticlesFromAssets();
+    }
+
+
+    private void getArticles() {
         ApiClient.getArticles(new Callback<List<Article>>() {
             @Override
             public void success(List<Article> articles, Response response) {
@@ -64,6 +77,22 @@ public class MainActivity extends AppCompatActivity {
                 L.d("failure: " + error.getLocalizedMessage());
             }
         });
+    }
+
+    private void getArticlesFromAssets() {
+        try {
+            AssetManager assetManager = this.getAssets();
+            InputStream inputStream = assetManager.open("sample.json");
+            JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Article>>(){}.getType();
+            List<Article> articles = gson.fromJson(reader,type);
+            mAdapter = new ArticleAdapter(MainActivity.this, R.layout.list_article_item, articles, getSupportLoaderManager());
+            mListView.setAdapter(mAdapter);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

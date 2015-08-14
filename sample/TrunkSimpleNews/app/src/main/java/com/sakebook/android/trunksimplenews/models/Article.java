@@ -11,8 +11,6 @@ public class Article {
     private String mTitle;
     @SerializedName("url")
     private String mUrl;
-    @SerializedName("user:profile_image_url")
-    private String mImageUrl;
     @SerializedName("body")
     private String mDescription;
     @SerializedName("user")
@@ -30,10 +28,6 @@ public class Article {
         mUrl = url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        mImageUrl = imageUrl;
-    }
-
     public void setDescription(String description) {
         mDescription = description;
     }
@@ -48,10 +42,6 @@ public class Article {
 
     public String getUrl() {
         return mUrl;
-    }
-
-    public String getImageUrl() {
-        return mImageUrl;
     }
 
     public String getDescription() {

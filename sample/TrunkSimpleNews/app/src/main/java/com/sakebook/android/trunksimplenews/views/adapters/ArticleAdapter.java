@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
+import com.sakebook.android.trunksimplenews.utils.L;
 import com.sakebook.android.trunksimplenews.views.AsyncImageView;
 import com.sakebook.android.trunksimplenews.views.ImageLoadCallback;
 
@@ -60,7 +61,8 @@ public class ArticleAdapter extends ArrayAdapter<Article>{
         String url = article.getUser().getImageUrl();
         if (!TextUtils.isEmpty(url)) {
             parent.setTag(holder.contentImage);
-            holder.contentImage.setImageFromUrl(url, mLoaderManager, new ImageLoadCallback() {
+            L.d("position: " + position + ": title: " + article.getTitle());
+            holder.contentImage.setImageFromUrl(url, position, mLoaderManager, new ImageLoadCallback() {
                 @Override
                 public void success(Bitmap bitmap) {
                     holder.contentImage.setImageBitmap(bitmap);

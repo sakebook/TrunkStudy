@@ -28,10 +28,10 @@ public class AsyncImageView extends ImageView implements LoaderManager.LoaderCal
         super(context, attrs, defStyleAttr);
     }
 
-    public void setImageFromUrl(String url, LoaderManager loaderManager, ImageLoadCallback callback) {
+    public void setImageFromUrl(String url, int id, LoaderManager loaderManager, ImageLoadCallback callback) {
         this.mUrl = url;
         this.mImageLoadCallback = callback;
-        loaderManager.initLoader(url.hashCode(), null, this);
+        loaderManager.initLoader(id, null, this);
     }
 
     @Override

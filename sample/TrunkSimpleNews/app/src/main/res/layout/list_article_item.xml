@@ -2,12 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="@dimen/small_margin"
+                android:paddingLeft="@dimen/mediam_margin"
+                android:paddingRight="@dimen/mediam_margin"
                 xmlns:tools="http://schemas.android.com/tools">
 
     <com.sakebook.android.trunksimplenews.views.AsyncImageView
         android:id="@+id/list_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="#eeeeee"
         android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher"/>
 
@@ -21,5 +25,11 @@
         android:textColor="@color/white"
         android:textSize="22sp"
         tools:text="タイトルです"/>
+
+    <View
+        android:layout_below="@+id/list_image"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/trunscluent"/>
 
 </RelativeLayout>

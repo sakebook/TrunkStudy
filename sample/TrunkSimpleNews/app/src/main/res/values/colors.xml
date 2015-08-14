@@ -4,4 +4,5 @@
     <color name="white">#ffffff</color>
     <color name="trunscluent">#80000000</color>
     <color name="black">#000000</color>
+    <color name="gray">#aaaaaa</color>
 </resources>

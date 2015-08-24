@@ -7,5 +7,5 @@ import android.graphics.Bitmap;
  */
 public interface ImageLoadCallback {
 
-    void success(Bitmap bitmap);
+    void success(Bitmap bitmap, String fromUrl);
 }

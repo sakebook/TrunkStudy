@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
 import com.sakebook.android.trunksimplenews.utils.L;
+import com.sakebook.android.trunksimplenews.utils.MemoryLruCache;
 import com.sakebook.android.trunksimplenews.views.AsyncImageView;
 import com.sakebook.android.trunksimplenews.views.ImageLoadCallback;
 
@@ -25,6 +26,7 @@ public class ArticleAdapter extends ArrayAdapter<Article>{
     private int mResourceId;
     private Context mContext;
     private LoaderManager mLoaderManager;
+    private MemoryLruCache mLruCache = new MemoryLruCache();
 
     public ArticleAdapter(Context context, int resource, List<Article> articles, LoaderManager loaderManager) {
         super(context, resource);
@@ -58,16 +60,23 @@ public class ArticleAdapter extends ArrayAdapter<Article>{
 
         Article article = mArticles.get(position);
         holder.titleText.setText(article.getTitle());
-        String url = article.getUser().getImageUrl();
+        final String url = article.getUser().getImageUrl();
         if (!TextUtils.isEmpty(url)) {
-            parent.setTag(holder.contentImage);
-            L.d("position: " + position + ": title: " + article.getTitle());
-            holder.contentImage.setImageFromUrl(url, position, mLoaderManager, new ImageLoadCallback() {
-                @Override
-                public void success(Bitmap bitmap) {
-                    holder.contentImage.setImageBitmap(bitmap);
-                }
-            });
+            if (mLruCache.getBitmapFromMemCache(url) == null) {
+                L.d("position: " + position + ": title: " + article.getTitle() + "null!!!!");
+                holder.contentImage.setImageFromUrl(url, position, mLoaderManager, new ImageLoadCallback() {
+                    @Override
+                    public void success(Bitmap bitmap, String fromUrl) {
+                        holder.contentImage.setImageBitmap(bitmap);
+                        if (url.equals(fromUrl)) {
+                            mLruCache.addBitmapToMemoryCache(fromUrl, bitmap);
+                        }
+                    }
+                });
+            } else {
+                L.d("position: " + position + ": title: " + article.getTitle() + "not null!!!!");
+                holder.contentImage.setImageBitmap(mLruCache.getBitmapFromMemCache(url));
+            }
         }
 
         return convertView;

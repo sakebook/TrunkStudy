@@ -40,14 +40,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initLayout();
+    }
+
+    private void initLayout() {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        init();
-    }
-
-
-    private void init() {
         mListView = (ListView)findViewById(R.id.list_article);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void success(List<Article> articles, Response response) {
                 L.d("success: " + articles.size());
+
                 mAdapter = new ArticleAdapter(MainActivity.this, R.layout.list_article_item, articles, getSupportLoaderManager());
                 mListView.setAdapter(mAdapter);
             }

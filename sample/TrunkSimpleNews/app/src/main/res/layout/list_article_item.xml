@@ -2,29 +2,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/small_margin"
                 android:paddingLeft="@dimen/mediam_margin"
                 android:paddingRight="@dimen/mediam_margin"
                 xmlns:tools="http://schemas.android.com/tools">
 
     <com.sakebook.android.trunksimplenews.views.AsyncImageView
         android:id="@+id/list_image"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:background="#eeeeee"
         android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher"/>
 
-    <TextView
-        android:id="@+id/list_title_text"
-        android:layout_alignBottom="@+id/list_image"
+    <LinearLayout
+        android:id="@+id/layout_texts"
+        android:layout_toRightOf="@+id/list_image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="@dimen/small_margin"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/small_margin"
-        android:background="@color/trunscluent"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        tools:text="タイトルです"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/list_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:background="@color/trunscluent"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            tools:text="タイトルです"/>
+
+        <TextView
+            android:id="@+id/list_tag_text"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="bottom"
+            android:background="@color/trunscluent"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:text="Android"
+            tools:text="タイトルです"/>
+
+
+
+    </LinearLayout>
 
     <View
         android:layout_below="@+id/list_image"

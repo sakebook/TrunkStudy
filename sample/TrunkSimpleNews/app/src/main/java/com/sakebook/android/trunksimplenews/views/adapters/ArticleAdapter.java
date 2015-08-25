@@ -13,7 +13,7 @@ import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
 import com.sakebook.android.trunksimplenews.utils.L;
 import com.sakebook.android.trunksimplenews.utils.MemoryLruCache;
-import com.sakebook.android.trunksimplenews.views.AsyncImageView;
+import com.sakebook.android.trunksimplenews.views.AsyncCustomImageView;
 import com.sakebook.android.trunksimplenews.views.ImageLoadCallback;
 
 import java.util.List;
@@ -86,12 +86,12 @@ public class ArticleAdapter extends ArrayAdapter<Article>{
 
         private TextView titleText;
 //        private TextView descriptionText;
-        private AsyncImageView contentImage;
+        private AsyncCustomImageView contentImage;
 
         public ViewHolder(View view) {
             titleText = (TextView)view.findViewById(R.id.list_title_text);
 //            descriptionText = (TextView)view.findViewById(0);
-            contentImage = (AsyncImageView) view.findViewById(R.id.list_image);
+            contentImage = (AsyncCustomImageView) view.findViewById(R.id.list_image);
         }
     }
 }

@@ -18,7 +18,7 @@ import com.sakebook.android.trunksimplenews.network.ImageLoader;
 
 import java.util.Random;
 
-public class AsyncImageView extends ImageView implements LoaderManager.LoaderCallbacks<Bitmap> {
+public class AsyncCustomImageView extends ImageView implements LoaderManager.LoaderCallbacks<Bitmap> {
 
     private String mUrl;
     private long startTimeMillis;
@@ -26,19 +26,19 @@ public class AsyncImageView extends ImageView implements LoaderManager.LoaderCal
 
     private ImageLoadCallback mImageLoadCallback;
 
-    public AsyncImageView(Context context) {
+    public AsyncCustomImageView(Context context) {
         super(context);
     }
 
-    public AsyncImageView(Context context, AttributeSet attrs) {
+    public AsyncCustomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         startTimeMillis = SystemClock.uptimeMillis();
-        Log.d("AsyncImageView", "AsyncImageView init 2");
+        Log.d("AsyncCustomImageView", "AsyncCustomImageView init 2");
     }
 
-    public AsyncImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AsyncCustomImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Log.d("AsyncImageView", "AsyncImageView init 3");
+        Log.d("AsyncCustomImageView", "AsyncCustomImageView init 3");
     }
 
     public void setImageFromUrl(String url, int id, LoaderManager loaderManager, ImageLoadCallback callback) {

@@ -6,7 +6,7 @@
                 android:paddingRight="@dimen/mediam_margin"
                 xmlns:tools="http://schemas.android.com/tools">
 
-    <com.sakebook.android.trunksimplenews.views.AsyncImageView
+    <com.sakebook.android.trunksimplenews.views.AsyncCustomImageView
         android:id="@+id/list_image"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"

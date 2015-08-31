@@ -1,5 +1,6 @@
 package com.sakebook.android.trunksimplenews.activities;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Article article = (Article) parent.getItemAtPosition(position);
                 Toast.makeText(MainActivity.this, article.getTitle(), Toast.LENGTH_SHORT).show();
+//                Intent intent = ArticleSimpleActivity.createIntent(MainActivity.this, article);
+                Intent intent = ArticleWebActivity.createIntent(MainActivity.this, article);
+                startActivity(intent);
             }
         });
         mListView.setDivider(null);

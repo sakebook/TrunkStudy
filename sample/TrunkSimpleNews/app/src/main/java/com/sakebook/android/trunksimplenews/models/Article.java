@@ -2,10 +2,12 @@ package com.sakebook.android.trunksimplenews.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by sakemotoshinya on 15/07/31.
  */
-public class Article {
+public class Article implements Serializable {
 
     @SerializedName("title")
     private String mTitle;

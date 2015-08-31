@@ -8,6 +8,7 @@ import com.sakebook.android.sample.retrofitsample.utils.LocalStorageUtil;
 public class MyApplication extends Application {
 
     private static MyApplication sApp;
+    public final static String TAG = "RetrofitSample";
 
     public MyApplication() {
 

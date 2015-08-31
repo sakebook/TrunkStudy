@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.sakebook.android.sample.retrofitsample.MyApplication;
 import com.sakebook.android.sample.retrofitsample.R;
 import com.sakebook.android.sample.retrofitsample.models.QiitaModel;
 import com.sakebook.android.sample.retrofitsample.network.QiitaApiClient;
@@ -24,16 +25,14 @@ public class MainActivity extends AppCompatActivity {
         QiitaApiClient.getModels("Android", new Callback<List<QiitaModel>>() {
             @Override
             public void success(List<QiitaModel> qiitaModels, Response response) {
-                Log.d("", qiitaModels.size() + "");
-
+                Log.d(MyApplication.TAG, "" + qiitaModels.size());
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d(MyApplication.TAG, "" + error.getMessage());
             }
         });
-
     }
 
 }

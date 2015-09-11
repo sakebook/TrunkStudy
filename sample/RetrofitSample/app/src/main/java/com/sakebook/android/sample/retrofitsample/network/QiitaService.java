@@ -13,7 +13,7 @@ import retrofit.http.Path;
 /**
  * Created by sakemotoshinya on 15/08/27.
  */
-public interface QiitaInterface {
+public interface QiitaService {
 
     @NonNull
     @GET("/api/v1/tags/{tagName}/items")

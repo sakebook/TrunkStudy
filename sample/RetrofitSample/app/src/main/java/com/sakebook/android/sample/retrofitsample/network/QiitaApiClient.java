@@ -18,7 +18,7 @@ public class QiitaApiClient {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(QIITA_API_HOST)
                 .build();
-        QiitaInterface qiitaService = restAdapter.create(QiitaInterface.class);
+        QiitaService qiitaService = restAdapter.create(QiitaService.class);
         qiitaService.tagArticles(tagName, callback);
     }
 

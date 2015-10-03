@@ -21,6 +21,20 @@ public class QiitaModel {
         return mTitle;
     }
 
+    public String getName() {
+        if (getUser() != null) {
+            return getUser().getName();
+        }
+        return "";
+    }
+
+    public String getImageUrl() {
+        if (getUser() != null) {
+            return getUser().getImageUrl();
+        }
+        return "";
+    }
+
     public class QiitaUser {
 
         @SerializedName("url_name")

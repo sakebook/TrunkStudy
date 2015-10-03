@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public class CatNewsModel {
 
-//    @SerializedName("image")
-//    public CatImageModel mCatImageModel;
+    @SerializedName("image")
+    public CatImageModel mCatImageModel;
 
     @SerializedName("title")
     public String mTitle;
@@ -21,18 +21,17 @@ public class CatNewsModel {
     @SerializedName("publishedDate")
     public Date mPublishDate;
 
+    public CatImageModel getCatImageModel() {
+        return mCatImageModel;
+    }
 
-//    public CatImageModel getCatImageModel() {
-//        return mCatImageModel;
-//    }
-//
-//    public String getCatImageUrl() {
-//        if (getCatImageModel() != null) {
-//            return this.getCatImageModel().mImageUrl;
-//        } else {
-//            return "";
-//        }
-//    }
+    public String getCatImageUrl() {
+        if (getCatImageModel() != null) {
+            return this.getCatImageModel().mImageUrl;
+        } else {
+            return "";
+        }
+    }
 
     public String getTitle() {
         return mTitle;

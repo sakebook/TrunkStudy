@@ -16,7 +16,7 @@ public class CatNewsClient {
     private final static String CAT_NEWS_API_HOST =
             "https://ajax.googleapis.com/";
 
-    public static void getCatModels(String keyword, Callback<CatResultModel> callback) {
+    public static void getResultModel(String keyword, Callback<CatResultModel> callback) {
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CatResultModel.class, new CatDeserializer())

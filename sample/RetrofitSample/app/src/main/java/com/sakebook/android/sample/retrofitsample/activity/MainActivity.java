@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 fetchGoogleSearchApi();
             }
         });
-
     }
 
     private void fetchQiitaAPI() {
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fetchGoogleSearchApi() {
-        CatNewsClient.getCatModels("猫", new Callback<CatResultModel>() {
+        CatNewsClient.getResultModel("猫", new Callback<CatResultModel>() {
             @Override
             public void success(CatResultModel catResultModel, Response response) {
                 Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
@@ -81,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             public void failure(RetrofitError error) {
                 Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d(MyApplication.TAG, "failure url : " + error.getUrl());
+                Log.d(MyApplication.TAG, "failure message : " + error.getMessage());
             }
         });
     }
-
 }

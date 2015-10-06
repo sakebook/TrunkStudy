@@ -6,7 +6,7 @@
                 android:paddingRight="@dimen/mediam_margin"
                 xmlns:tools="http://schemas.android.com/tools">
 
-    <com.sakebook.android.trunksimplenews.views.AsyncCustomImageView
+    <ImageView
         android:id="@+id/list_image"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -32,30 +32,49 @@
             android:id="@+id/list_title_text"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            android:background="@color/trunscluent"
+            android:background="@color/teal_green"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:maxLines="3"
+            android:padding="@dimen/small_margin"
+            android:ellipsize="end"
+            android:textSize="16sp"
             tools:text="タイトルです"/>
 
         <TextView
             android:id="@+id/list_tag_text"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:gravity="bottom"
-            android:background="@color/trunscluent"
+            android:gravity="bottom|right"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingBottom="@dimen/small_margin"
+            android:background="@color/teal_green"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:text="Android"
-            tools:text="タイトルです"/>
+            tools:text="タグです"/>
 
 
 
     </LinearLayout>
 
     <View
+        android:id="@+id/line_view1"
         android:layout_below="@+id/list_image"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/trunscluent"/>
+        android:background="@color/gray"/>
+    <View
+        android:id="@+id/line_view2"
+        android:layout_below="@+id/line_view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray"/>
+    <View
+        android:id="@+id/line_view3"
+        android:layout_below="@+id/line_view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/ultra_light_gray"/>
+
 
 </RelativeLayout>

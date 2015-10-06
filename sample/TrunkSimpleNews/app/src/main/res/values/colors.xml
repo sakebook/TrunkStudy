@@ -4,5 +4,10 @@
     <color name="white">#ffffff</color>
     <color name="trunscluent">#80000000</color>
     <color name="black">#000000</color>
-    <color name="gray">#aaaaaa</color>
+    <color name="gray">#333333</color>
+    <color name="light_gray">#888888</color>
+    <color name="ultra_light_gray">#eeeeee</color>
+
+    <color name="teal_green">#009688</color>
+
 </resources>

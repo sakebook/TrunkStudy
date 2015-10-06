@@ -16,11 +16,15 @@ import java.net.URL;
  */
 public class ImageLoader extends AsyncTaskLoader<Bitmap> {
 
-    private String mUrl;
+    private String mUrl = null;
 
     public ImageLoader(Context context, String url) {
         super(context);
         this.mUrl = url;
+    }
+
+    public String getUrl() {
+        return mUrl;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class ImageLoader extends AsyncTaskLoader<Bitmap> {
 
     @Override
     public Bitmap loadInBackground() {
-        L.d("loadInBackground");
+        L.d("loadInBackground " + mUrl);
         InputStream input = null;
         try {
             input = new URL(mUrl).openStream();

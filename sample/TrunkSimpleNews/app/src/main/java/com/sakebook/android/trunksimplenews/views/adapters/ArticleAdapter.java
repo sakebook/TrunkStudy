@@ -1,20 +1,19 @@
 package com.sakebook.android.trunksimplenews.views.adapters;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v4.app.LoaderManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
 import com.sakebook.android.trunksimplenews.utils.L;
 import com.sakebook.android.trunksimplenews.utils.MemoryLruCache;
-import com.sakebook.android.trunksimplenews.views.AsyncCustomImageView;
-import com.sakebook.android.trunksimplenews.views.ImageLoadCallback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,15 +23,15 @@ import java.util.List;
 public class ArticleAdapter extends ArrayAdapter<Article>{
     private List<Article> mArticles;
     private int mResourceId;
-    private Context mContext;
+    private AppCompatActivity mAppCompatActivity;
     private LoaderManager mLoaderManager;
     private MemoryLruCache mLruCache = new MemoryLruCache();
 
-    public ArticleAdapter(Context context, int resource, List<Article> articles, LoaderManager loaderManager) {
-        super(context, resource);
+    public ArticleAdapter(AppCompatActivity activity, int resource, List<Article> articles, LoaderManager loaderManager) {
+        super(activity, resource);
         mArticles = articles;
         mResourceId = resource;
-        mContext = context;
+        mAppCompatActivity = activity;
         mLoaderManager = loaderManager;
     }
 
@@ -48,10 +47,10 @@ public class ArticleAdapter extends ArrayAdapter<Article>{
     }
 
     @Override
-    public View getView(int position, View convertView, final ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         if (convertView == null) {
-            convertView = View.inflate(getContext(), mResourceId, null);
+            convertView = View.inflate(mAppCompatActivity, mResourceId, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -60,38 +59,24 @@ public class ArticleAdapter extends ArrayAdapter<Article>{
 
         Article article = mArticles.get(position);
         holder.titleText.setText(article.getTitle());
-        final String url = article.getUser().getImageUrl();
+        String url = article.getUser().getImageUrl();
+        L.d("holder.id: " + holder.contentImage.getId());
         if (!TextUtils.isEmpty(url)) {
-            if (mLruCache.getBitmapFromMemCache(url) == null) {
-                L.d("position: " + position + ": title: " + article.getTitle() + "null!!!!");
-                holder.contentImage.setImageFromUrl(url, position, mLoaderManager, new ImageLoadCallback() {
-                    @Override
-                    public void success(Bitmap bitmap, String fromUrl) {
-                        holder.contentImage.setImageBitmap(bitmap);
-                        if (url.equals(fromUrl)) {
-                            mLruCache.addBitmapToMemoryCache(fromUrl, bitmap);
-                        }
-                    }
-                });
-            } else {
-                L.d("position: " + position + ": title: " + article.getTitle() + "not null!!!!");
-                holder.contentImage.setImageBitmap(mLruCache.getBitmapFromMemCache(url));
-            }
+            Picasso.with(getContext()).load(url).into(holder.contentImage);
         }
-
         return convertView;
     }
 
-    private static class ViewHolder {
+    private class ViewHolder {
 
         private TextView titleText;
 //        private TextView descriptionText;
-        private AsyncCustomImageView contentImage;
+        private ImageView contentImage;
 
         public ViewHolder(View view) {
             titleText = (TextView)view.findViewById(R.id.list_title_text);
 //            descriptionText = (TextView)view.findViewById(0);
-            contentImage = (AsyncCustomImageView) view.findViewById(R.id.list_image);
+            contentImage = (ImageView) view.findViewById(R.id.list_image);
         }
     }
 }

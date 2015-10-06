@@ -15,11 +15,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.sakebook.android.trunksimplenews.network.ImageLoader;
+import com.sakebook.android.trunksimplenews.utils.L;
 
 import java.util.Random;
 
 public class AsyncCustomImageView extends ImageView implements LoaderManager.LoaderCallbacks<Bitmap> {
 
+    private final static String TAG = AsyncCustomImageView.class.getSimpleName();
     private String mUrl;
     private long startTimeMillis;
     private boolean canAnimate = true;
@@ -33,18 +35,48 @@ public class AsyncCustomImageView extends ImageView implements LoaderManager.Loa
     public AsyncCustomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         startTimeMillis = SystemClock.uptimeMillis();
-        Log.d("AsyncCustomImageView", "AsyncCustomImageView init 2");
+        L.d("AsyncCustomImageView init 2");
     }
 
     public AsyncCustomImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Log.d("AsyncCustomImageView", "AsyncCustomImageView init 3");
+        L.d("AsyncCustomImageView init 3");
     }
 
     public void setImageFromUrl(String url, int id, LoaderManager loaderManager, ImageLoadCallback callback) {
         this.mUrl = url;
+        this.setTag(mUrl);
         this.mImageLoadCallback = callback;
-        loaderManager.initLoader(mUrl.hashCode(), null, this);
+        loaderManager.initLoader(url.hashCode(), null, this);
+//        loaderManager.restartLoader(url.hashCode(), null, new LoaderManager.LoaderCallbacks<Bitmap>() {
+//            @Override
+//            public Loader onCreateLoader(int id, Bundle args) {
+//                L.d("(2) new--------");
+//                L.d("onCreateLoader");
+//                return new ImageLoader(getContext(), mUrl);
+//            }
+//
+//            @Override
+//            public void onLoadFinished(Loader<Bitmap> loader, Bitmap data) {
+//                L.d("(6) new--------");
+//                L.d("onLoadFinished");
+//                AsyncCustomImageView.this.mImageLoadCallback.success(AsyncCustomImageView.this, data, AsyncCustomImageView.this.mUrl);
+////                if (mUrl.equals(this.getTag())) {
+////                    L.d("url match!");
+////                    this.mImageLoadCallback.success(this, data, mUrl);
+////                } else {
+////                    L.d("url not match!");
+////                }
+////        this.mImageLoadCallback.success(this, data, mUrl);
+//
+//            }
+//
+//            @Override
+//            public void onLoaderReset(Loader loader) {
+//                L.d("onLoaderReset new");
+//
+//            }
+//        });
     }
 
     @Override
@@ -83,17 +115,26 @@ public class AsyncCustomImageView extends ImageView implements LoaderManager.Loa
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
-        ImageLoader loader = new ImageLoader(getContext(), mUrl);
-        return loader;
+        L.d("onCreateLoader");
+        return new ImageLoader(getContext(), mUrl);
     }
 
     @Override
     public void onLoadFinished(Loader<Bitmap> loader, Bitmap data) {
-        mImageLoadCallback.success(data, mUrl);
+        L.d("onLoadFinished");
+        if (mUrl.equals(this.getTag())) {
+            L.d("url match!");
+            this.mImageLoadCallback.success(this, data, mUrl);
+        } else {
+            L.d("url not match!");
+        }
+//        this.mImageLoadCallback.success(this, data, mUrl);
+
     }
 
     @Override
     public void onLoaderReset(Loader loader) {
+        L.d("onLoaderReset");
 
     }
 }

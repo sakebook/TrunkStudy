@@ -1,10 +1,15 @@
 package com.sakebook.android.trunksimplenews.activities;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.sakebook.android.trunksimplenews.R;
+import com.sakebook.android.trunksimplenews.TrunksimpleNewsApplication;
 import com.sakebook.android.trunksimplenews.models.Article;
 import com.sakebook.android.trunksimplenews.network.ApiClient;
 import com.sakebook.android.trunksimplenews.utils.L;
@@ -54,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Article article = (Article) parent.getItemAtPosition(position);
                 Toast.makeText(MainActivity.this, article.getTitle(), Toast.LENGTH_SHORT).show();
-//                Intent intent = ArticleSimpleActivity.createIntent(MainActivity.this, article);
                 Intent intent = ArticleWebActivity.createIntent(MainActivity.this, article);
                 startActivity(intent);
             }
@@ -114,10 +119,33 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_license) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final int REQUEST_CODE = 1000;
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Toast.makeText(this, "成功",
+                        Toast.LENGTH_SHORT).show();
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "キャンセル",
+                        Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Log.d("TAG", "知らない結果");
+        }
+    }
+
+
+
+
+
 }

@@ -1,12 +1,8 @@
 package com.sakebook.android.trunksimplenews.activities;
 
 import android.app.Activity;
-import android.app.Instrumentation;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,11 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.sakebook.android.trunksimplenews.R;
-import com.sakebook.android.trunksimplenews.TrunksimpleNewsApplication;
+import com.sakebook.android.trunksimplenews.TrunkSimpleNewsApplication;
 import com.sakebook.android.trunksimplenews.models.Article;
 import com.sakebook.android.trunksimplenews.network.ApiClient;
 import com.sakebook.android.trunksimplenews.utils.L;
@@ -37,7 +35,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private ListView mListView;
     private ArticleAdapter mAdapter;
@@ -45,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        L.d("MainActivity onCreate");
         setContentView(R.layout.activity_main);
 
         initLayout();
@@ -120,10 +119,22 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_license) {
+            showLicense();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showLicense() {
+        TrunkSimpleNewsApplication application =
+                (TrunkSimpleNewsApplication)getApplication();
+        Tracker t = application.getDefaultTracker();
+        t.send(new HitBuilders.EventBuilder()
+                .setCategory("UX")
+                .setAction("click")
+                .setLabel("license")
+                .build());
     }
 
     @Override

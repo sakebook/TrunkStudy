@@ -5,26 +5,21 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.GeolocationPermissions;
-import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
 
-public class ArticleWebActivity extends AppCompatActivity {
+public class ArticleWebActivity extends BaseActivity {
 
     private static String CONST_ARTICLE = "article";
     private WebView mWebView;
@@ -111,6 +106,11 @@ public class ArticleWebActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, shareText);
+
+
+//        TrunkSimpleNewsApplication.tracker().send(new HitBuilders.EventBuilder("ui", "open")
+//                .setLabel("settings")
+//                .build());
 
         final int REQUEST_CODE = 1000;
         try{

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.sakebook.android.trunksimplenews.R;
 import com.sakebook.android.trunksimplenews.models.Article;
 
-public class ArticleSimpleActivity extends AppCompatActivity {
+public class ArticleSimpleActivity extends BaseActivity {
 
     private static String CONST_ARTICLE = "article";
 

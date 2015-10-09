@@ -2,6 +2,8 @@
 TrunkのAndroid勉強用のリポジトリ。
 http://trunk.fm/trainings/27
 
+![image](https://raw.githubusercontent.com/sakebook/TrunkStudy/master/art/screenshot_01.png)
+
 ##やらないこと
  * 開発環境構築
  * Javaの文法
